@@ -13,7 +13,8 @@ const BASIS_URL = "http://localhost:8080/kfzkennzeichen/v1/unterscheidungszeiche
  * 
  * @param {string} uz Unterscheidungszeichen (1-3 Großbuchstaben)
  * 
- * @return {boolean} `true` gdw. Existenz Unterscheidungszeichen bestätigt wurde
+ * @return {Promise<string>} Bedeutung des Unterscheidungszeichens (z.B. "Stuttgart (BW)")
+ *                           oder leerer String, wenn Unterscheidungszeichen nicht bekannt
  */
 export async function fetchUnterscheidungszeichen( uz ) {
 
@@ -27,14 +28,12 @@ export async function fetchUnterscheidungszeichen( uz ) {
         const bedeutung = antwort.data.unterscheidungszeichen.bedeutung;
         const kategorie = antwort.data.unterscheidungszeichen.kategorie;
         
-        logger.info( `Bedeutung für "${uz}" erhalten: ${bedeutung} (${kategorie})` );
-
-        return true;
+        return `${bedeutung} (${kategorie})`;
 
     } catch ( fehler ) { // 4xx und 5xx als Response-Code
 
         logger.error( `Fehler bei der Abfrage von Unterscheidungszeichen "${uz}": `, 
                       fehler.message );
-        return false;
+        return "";
     }
 }

@@ -14,7 +14,7 @@ const logger = logging.default( "service" );
  * @param {string} kfzKennzeichen KFZ-Kennzeichen, das geprüft 
  *                                werden soll, z.B. "KA X 1234"
  *  
- * @return {KfzCheckErgebnis} Objekt mit Ergebnis des Checks 
+ * @return {Promise<KfzCheckErgebnis>} Objekt mit Ergebnis des Checks 
  */
 export async function checkKfzKennzeichen( kfzKennzeichen ) {
 
@@ -67,13 +67,13 @@ export async function checkKfzKennzeichen( kfzKennzeichen ) {
     }
 
     // jetzt können wir den externen REST-Service aufrufen
-    const uzGefunden = await fetchUnterscheidungszeichen( teil1 );
-    if ( !uzGefunden ) {
+    const uzAufgeloest = await fetchUnterscheidungszeichen( teil1 );
+    if ( uzAufgeloest === "" ) {
 
         return new KfzCheckErgebnis( kfzKennzeichenNormiert, false, 
                                      `Unterscheidungszeichen "${teil1}" nicht gefunden.` );
     } 
 
     return new KfzCheckErgebnis( kfzKennzeichenNormiert, true, 
-                                 "KFZ-Kennzeichen ist syntaktisch korrekt." );
+                                 `KFZ-Kennzeichen ist syntaktisch korrekt (${uzAufgeloest}).` );
 }
