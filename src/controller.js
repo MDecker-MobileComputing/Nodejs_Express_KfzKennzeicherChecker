@@ -1,6 +1,6 @@
 import logging from "logging";
-
 import { checkKfzKennzeichen } from "./service.js";
+
 
 const logger = logging.default( "controller" );
 
