@@ -1,0 +1,20 @@
+{
+  "name": "nodejs_express_kfzkennzeichenchecker",
+  "version": "1.0.0",
+  "description": "REST-API zur Überprüfung von KFZ-Kennzeichen, ruft andere REST-API auf",
+  "author": "MDecker-MobileComputing",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.8.3",
+    "express": "^4.21.2",
+    "logging": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon --ignore db.json src/main.js"
+  }
+}
