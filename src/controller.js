@@ -27,13 +27,13 @@ export function routenRegistrieren( app ) {
 
  * @param {*} res HTTP-Response
  */
-function getCheckKennzeichen( req, res ) {
+async function getCheckKennzeichen( req, res ) {
 
     const kennzeichen = decodeURIComponent( req.params.kennzeichen );
 
     logger.info( `Request für Check von KFZ-Kennzeichen erhalten: ${kennzeichen}` );
 
-    const ergebnis = checkKfzKennzeichen( kennzeichen );
+    const ergebnis = await checkKfzKennzeichen( kennzeichen );
 
     const httpStatusCode = ergebnis.gueltig ? 200 : 404;
 

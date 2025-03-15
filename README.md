@@ -5,7 +5,8 @@
 Dieses Repo enthält ein Nodejs-Programm mit Express.js, das einen syntaktischen Check von
 deutschen KFZ-Kennzeichen implementiert. Hierzu wird bei Bedarf auch 
 [dieser Microservice](https://github.com/MDecker-MobileComputing/Nodejs_Express_KfzKennzeichenMitLowdb) 
-zur Abfrage der Unterscheidungszeichen aufgerufen.
+zur Abfrage der Unterscheidungszeichen aufgerufen, und zwar unter Verwendung von
+[axios](https://www.npmjs.com/package/axios).
 
 <br>
 

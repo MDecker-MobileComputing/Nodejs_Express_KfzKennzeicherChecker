@@ -1,6 +1,7 @@
 import logging from "logging";
 
-import { KfzCheckErgebnis } from "./checkergebnis.js";
+import { KfzCheckErgebnis }            from "./kfzCheckErgebnis.js";
+import { fetchUnterscheidungszeichen } from "./fetchUnterscheidungszeichen.js";
 
 const logger = logging.default( "service" );
 
@@ -15,11 +16,11 @@ const logger = logging.default( "service" );
  *  
  * @return {KfzCheckErgebnis} Objekt mit Ergebnis des Checks 
  */
-export function checkKfzKennzeichen( kfzKennzeichen ) {
+export async function checkKfzKennzeichen( kfzKennzeichen ) {
 
     let kfzKennzeichenNormiert = kfzKennzeichen.trim().toUpperCase();
 
-    const kompArray = kfzKennzeichenNormiert.replace(/ {2,}/g, " " ).split( " " );
+    const kompArray = kfzKennzeichenNormiert.replace( / {2,}/g, " " ).split( " " );
 
     const anzahlKomponenten = kompArray.length;
     if ( anzahlKomponenten != 3 ) {
@@ -55,7 +56,7 @@ export function checkKfzKennzeichen( kfzKennzeichen ) {
     if ( !isTeil3Valid ) {
 
         return new KfzCheckErgebnis( kfzKennzeichenNormiert, false, 
-                                     "Keine Zahl 1-9999 am Ende" );
+                                     "Keine Zahl im Bereich 1 bis 9999 am Ende" );
     }
 
     const summeZeichen = teil1.length + teil2.length + teil3.length;
@@ -65,5 +66,14 @@ export function checkKfzKennzeichen( kfzKennzeichen ) {
                                      "KFZ-Kennzeichen besteht aus mehr als 8 Zeichen." );
     }
 
-    return new KfzCheckErgebnis( kfzKennzeichenNormiert, true, "KFZ-Kennzeichen ist syntaktisch korrekt" );
+    // jetzt können wir den externen REST-Service aufrufen
+    const uzGefunden = await fetchUnterscheidungszeichen( teil1 );
+    if ( !uzGefunden ) {
+
+        return new KfzCheckErgebnis( kfzKennzeichenNormiert, false, 
+                                     `Unterscheidungszeichen "${teil1}" nicht gefunden.` );
+    } 
+
+    return new KfzCheckErgebnis( kfzKennzeichenNormiert, true, 
+                                 "KFZ-Kennzeichen ist syntaktisch korrekt." );
 }
