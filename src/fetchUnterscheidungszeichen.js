@@ -29,7 +29,7 @@ export async function fetchUnterscheidungszeichen( uz ) {
         
         logger.info( `Bedeutung für "${uz}" erhalten: ${bedeutung} (${kategorie})` );
 
-        return false;
+        return true;
 
     } catch ( fehler ) { // 4xx und 5xx als Response-Code
 
