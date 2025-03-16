@@ -5,14 +5,14 @@ import logging from "logging";
 const logger = logging.default( "externe-api" );
 
 /** An diese URL ist das abzufragende Unterscheidungszeichen anzuhängen */
-const BASIS_URL = "http://localhost:8080/kfzkennzeichen/v1/unterscheidungszeichen/":
+const BASIS_URL = "http://localhost:8080/kfzkennzeichen/v1/unterscheidungszeichen/";
 
 
 /**
  * HTTP-REST-Call an externen Service, um Unterscheidungszeichen aufzulösen bzw.
  * auf Existenz zu prüfen.
  * 
- * @param {string} uz Unterscheidungszeichen (1-3 Großbuchstaben)
+ * @param {string} uz Unterscheidungszeichen (1-3 Großbuchstaben), z.B. "KA" 
  * 
  * @return {Promise<string>} Bedeutung des Unterscheidungszeichens (z.B. "Stuttgart (BW)")
  *                           oder leerer String, wenn Unterscheidungszeichen nicht bekannt
