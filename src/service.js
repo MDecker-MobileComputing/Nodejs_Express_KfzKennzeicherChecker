@@ -1,9 +1,5 @@
-import logging from "logging";
-
 import { KfzCheckErgebnis }            from "./kfzCheckErgebnis.js";
 import { fetchUnterscheidungszeichen } from "./fetchUnterscheidungszeichen.js";
-
-const logger = logging.default( "service" );
 
 
 /**
