@@ -1,8 +1,8 @@
-import logging from "logging";
+import createLogger from "logging";
 import { checkKfzKennzeichen } from "./service.js";
 
 
-const logger = logging.default( "controller" );
+const logger = createLogger( "controller" );
 
 const prefixFuerRouten = "/v1/kfzKennzeichen/";
 

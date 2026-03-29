@@ -1,8 +1,8 @@
-import axios   from "axios";
-import logging from "logging";
+import axios        from "axios";
+import createLogger from "logging";
 
 
-const logger = logging.default( "externe-api" );
+const logger = createLogger( "externe-api" );
 
 /** An diese URL ist das abzufragende Unterscheidungszeichen anzuhängen */
 const BASIS_URL = "http://localhost:8080/kfzkennzeichen/v1/unterscheidungszeichen/";
